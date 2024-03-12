@@ -1,6 +1,6 @@
 # Efficiency Step 2
 
-`version 4.0`
+`version 5.0`
 
 `author: yghuang`
 
@@ -8,9 +8,29 @@
 
 ### Usage
 
--
+1. `make`
+
+2. for local test, prepare a file list and then `./do.sh`
+
+3. for submitting jobs, modify the following in `TemplateXXX.xml`:
+    >
+    > Line 12, first number (1.0) is DCA cut, and second number (20) is nHitsFit cut
+    >
+    > Line 25, input file list is the fDst file list
+
+4. do `./preparePro.sh XXXX` and `./preparePbar.sh XXXX` to generate directories
+
+5. `star-submit CsubmitPro.xml` and `star-submit CsubmitPbar.xml`
 
 ## Change log
+
+11.03.2024 by yghuang (v5.0):
+
+> 更改了接口，增加运行参数来调整cut
+>
+> 使用star-submit来提交批处理任务，因为大统计量embedding，之前的hadd之后本地运行的做法不再适用
+>
+>> 现在需要分别给proton和antiproton交任务，然后merge起来，因为不好处理两个长度不一样的list
 
 14.12.2023 by yghuang (v4.0):
 

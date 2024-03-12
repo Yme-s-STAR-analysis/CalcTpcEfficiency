@@ -11,8 +11,6 @@ class TEfficiency;
 class TpcEffMaker{
     private:
         // tfiles to readin tracks and dump efficiencies
-        TFile* tf_in_p;
-        TFile* tf_in_a;
         TFile* tf_out;
 
         // quality cut limitations
@@ -50,10 +48,10 @@ class TpcEffMaker{
 
 
     public:
-        TpcEffMaker(const char* fin_name_p, const char* fin_name_a, const char* fout_name);
+        TpcEffMaker(const char* fout_name);
         ~TpcEffMaker(){}
 
-        void make(int ptype);
+        void make(const char* input_list, int ptype);
         void write();
         int vz_split(double val);
         
