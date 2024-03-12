@@ -1,6 +1,10 @@
 #include <iostream>
+#include <fstream>
+#include <string>
+
 #include "TFile.h"
 #include "TTree.h"
+#include "TChain.h"
 #include "TH1F.h"
 #include "TH2F.h"
 #include "TEfficiency.h"
@@ -9,12 +13,14 @@
 
 #include "EffTool.h"
 
-TpcEffMaker:: TpcEffMaker(const char* fin_name_p, const char* fin_name_a, const char* fout_name) {
+TpcEffMaker:: TpcEffMaker(const char* fout_name) {
     // init. TFiles
-    tf_in_p = TFile::Open(fin_name_p);
-    tf_in_a = TFile::Open(fin_name_a);
-    tf_out = new TFile(fout_name, "recreate");
+    // tf_in_p = TFile::Open(fin_name_p);
+    // tf_in_a = TFile::Open(fin_name_a);
+    // v5.0: now we will read a file list
+    // and the initialization is moved to TpcEffMaker::make()
 
+    tf_out = new TFile(fout_name, "recreate");
     // init. cuts
     mCut_dca = 1.0;
     mCut_nHitsFit = 20;
@@ -87,16 +93,23 @@ int TpcEffMaker::vz_split(double val) {
     }
 }
 
-void TpcEffMaker::make(int ptype){
-    TNtuple* tree;
+void TpcEffMaker::make(const char* input_list, int ptype){
+    std::ifstream fin;
+    std::string strtmp;
+    TChain* tree = new TChain("fDstTree");
+
+    fin.open(input_list);
+    while (std::getline(fin, strtmp)) {
+        tree->Add(strtmp.c_str());
+        std::cout << "[LOG] Now adding new TFile: " << strtmp << std::endl;
+    }
+    fin.close();
+
     if (ptype == 0) { // proton
-        tree = (TNtuple*)tf_in_p->Get("fDstTree");
         std::cout << "[LOG] Now calculate Proton.\n";
     } else if (ptype == 1) { // antiproton
-        tree = (TNtuple*)tf_in_a->Get("fDstTree");
         std::cout << "[LOG] Now calculate Antiproton.\n";
     }
-
 
     Float_t cent, vz;
     Float_t match, pt, eta, y;
@@ -194,7 +207,5 @@ void TpcEffMaker::write(){
             }
         }
     }
-    tf_in_p->Close();
-    tf_in_a->Close();
     tf_out->Close();
 }
