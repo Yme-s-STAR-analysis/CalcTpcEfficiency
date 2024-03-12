@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<job maxFilesPerProcess="60" simulateSubmission="false">
+
+  <SandBox installer="ZIP">
+    <Package name="libZip">
+      <File>file:./run</File>
+    </Package>
+  </SandBox>
+
+  <command>
+
+    ./run $FILELIST 1 $SCRATCH/$JOBID.root 1.0 20 &gt;&amp; ${JOBID}.log
+
+  </command>
+
+  <stdout URL="file:TARGET/log/$JOBID.log" />
+  <stderr URL="file:TARGET/err/$JOBID.err" />
+
+  <Generator>
+    <Location>TARGET/report/</Location>
+    <ScriptLocation>TARGET/csh/</ScriptLocation>
+    <ListLocation>TARGET/list/</ListLocation>
+  </Generator>
+
+  <input URL="filelist:/star/u/yghuang/Work/DataAnalysis/BES2/19p6/Efficiency/u2Aproton/antiproton.u.list" />
+  <output fromScratch="*.root" toURL="file:TARGET/out/" />
+  <output fromScratch="*.log" toURL="file:TARGET/log/" />
+
+
+
+</job>
