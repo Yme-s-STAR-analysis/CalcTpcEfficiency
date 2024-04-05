@@ -1,10 +1,9 @@
 #ifndef __TPC_CALC_UTILS_HEAD__
 #define __TPC_CALC_UTILS_HEAD__
 
-// if you just want the TH2F efficiency heatmap, cancel this macro
+// in case you want to store eta or y dependence of efficiency, uncomment this
 // #define __FULL_GRAPH__
 
-class TH2F;
 class TFile;
 class TEfficiency;
 
@@ -24,27 +23,13 @@ class TpcEffMaker{
         static const int nVz = 5; 
 
     #ifdef __FULL_GRAPH__
-
-        // THist
-        TH1F* th1_eta_mc[nCent][nVz][2];
-        TH1F* th1_y_mc[nCent][nVz][2];
-        TH2F* th2_y_pt_mc[nCent][nVz][2];
-
-        TH1F* th1_eta_rc[nCent][nVz][2];
-        TH1F* th1_y_rc[nCent][nVz][2];
-        TH2F* th2_y_pt_rc[nCent][nVz][2];
-
-        // TEfficiency
         // centrality 0 ~ 9 from central to peripheral
         // last dim., 0 for proton and 1 for antiproton
         TEfficiency* teff_eta[nCent][nVz][2];
         TEfficiency* teff_y[nCent][nVz][2];
-        // TEfficiency* teff_y_pt[nCent][nVz][2];
-
     #endif
 
         TEfficiency* teff_y_pt[nCent][nVz][2];
-        TH2F* th2_y_pt[nCent][nVz][2];
 
 
     public:
