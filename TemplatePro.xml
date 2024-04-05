@@ -22,7 +22,7 @@
     <ListLocation>TARGET/list/</ListLocation>
   </Generator>
 
-  <input URL="filelist:/star/u/yghuang/Work/DataAnalysis/BES2/19p6/Efficiency/u1Proton/proton.u.list" />
+  <input URL="filelist:/star/u/yghuang/Work/DataAnalysis/BES2/OverAll/4EmbedList/2treeList/19.antiproton.list" />
   <output fromScratch="*.root" toURL="file:TARGET/out/" />
   <output fromScratch="*.log" toURL="file:TARGET/log/" />
 
