@@ -1,6 +1,6 @@
 # Efficiency Step 2
 
-`version 5.0`
+`version 5.1`
 
 `author: yghuang`
 
@@ -23,6 +23,10 @@
 5. `star-submit CsubmitPro.xml` and `star-submit CsubmitPbar.xml`
 
 ## Change log
+
+05.04.2024 by yghuang (v5.1):
+
+> 删除了TH1F和TH2F，因为可以直接从TEfficiency里面读出来，没必要单独存
 
 11.03.2024 by yghuang (v5.0):
 
